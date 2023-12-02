@@ -21,11 +21,7 @@
         android:id="@+id/createAccountFragment"
         android:name="com.chscorp.apptreino.ui.CreateAccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_create_account" >
-        <action
-            android:id="@+id/action_createAccountFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_create_account" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.chscorp.apptreino.ui.HomeFragment"
