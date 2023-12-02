@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateAccountBinding
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,8 +34,25 @@ class CreateAccountFragment : Fragment() {
         binding.confirmRegisterUserBtn.setOnClickListener {
             val email = binding.userEmail.editText?.text.toString()
             val senha = binding.userPassword.editText?.text.toString()
-            viewModel.registerNewUser(email, senha)
-            //controller.popBackStack()
+            viewModel.registerNewUser(email, senha).observe(viewLifecycleOwner, Observer {
+                it?.let { registerWithSuccess ->
+                    if (registerWithSuccess) {
+                        Snackbar.make(
+                            view,
+                            "Cadastro realizado com sucesso",
+                            Snackbar.LENGTH_SHORT)
+                            .show()
+                        controller.popBackStack()
+                    } else {
+                        Snackbar.make(
+                            view,
+                            "Ocorreu uma falha no cadastro",
+                            Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            })
+
         }
     }
 

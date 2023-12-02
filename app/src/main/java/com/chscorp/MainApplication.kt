@@ -6,7 +6,6 @@ import com.chscorp.apptreino.di.repositoryModule
 import com.chscorp.apptreino.di.uiModules
 import com.chscorp.apptreino.di.viewModels
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
 
 class MainApplication : Application() {

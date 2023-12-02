@@ -1,6 +1,8 @@
 package com.chscorp.apptreino.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -30,14 +32,18 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
             }
     }
 
-    fun cadastraUsuario(email: String, password: String) {
-        val tarefa =
+    fun createNewUser(email: String, password: String): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        val task =
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-        tarefa.addOnSuccessListener {
+        task.addOnSuccessListener {
             Log.i(TAG, "cadastra: cadastro sucedido")
+            liveData.value = true
         }
-        tarefa.addOnFailureListener {
+        task.addOnFailureListener {
             Log.e(TAG, "cadastro: cadastro falhou", it)
+            liveData.value = false
         }
+        return liveData
     }
 }
