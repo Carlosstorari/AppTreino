@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateAccountBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CreateAccountFragment : Fragment() {
@@ -16,6 +17,7 @@ class CreateAccountFragment : Fragment() {
         findNavController()
     }
     private lateinit var binding: FragmentCreateAccountBinding
+    private val viewModel: CreateAccountViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +30,10 @@ class CreateAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.confirmRegisterUserBtn.setOnClickListener {
-            val direction = CreateAccountFragmentDirections
-                .actionCreateAccountFragmentToLoginFragment()
-            controller.navigate(direction)
+            val email = binding.userEmail.editText?.text.toString()
+            val senha = binding.userPassword.editText?.text.toString()
+            viewModel.registerNewUser(email, senha)
+            //controller.popBackStack()
         }
     }
 
