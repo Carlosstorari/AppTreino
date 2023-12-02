@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppTreino</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_fragment">Hello Fulano</string>
+    <string name="create_account_fragment">Hello Create Account fragment</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Senha</string>
+    <string name="hint_confirm_password">Confirmar senha</string>
+</resources>

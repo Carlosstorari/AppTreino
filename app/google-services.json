@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "972482983132",
+    "project_id": "app-treino-2a935",
+    "storage_bucket": "app-treino-2a935.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972482983132:android:f39a28b139529ec3c1f019",
+        "android_client_info": {
+          "package_name": "com.chscorp.apptreino"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1OVarThGFt_E-XVz43gGvnY1j_MXW5kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
