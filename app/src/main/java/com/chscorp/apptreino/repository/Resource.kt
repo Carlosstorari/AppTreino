@@ -1,3 +1,5 @@
 package com.chscorp.apptreino.repository
 
-class Resource<T>(val content: T, val error: String? = null)
+import androidx.annotation.StringRes
+
+class Resource<T>(val content: T, @StringRes val error: Int? = null)

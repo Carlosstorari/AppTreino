@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateAccountBinding
 import com.chscorp.apptreino.extensions.snackBar
 import com.chscorp.apptreino.model.User
-import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -60,10 +60,12 @@ class CreateAccountFragment : Fragment() {
         viewModel.registerNewUser(user.email, user.password).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 if (resource.content) {
-                    view?.snackBar("Cadastro realizado com sucesso")
+                    view?.snackBar(getString(R.string.registration_completed_successfully))
                     controller.popBackStack()
                 } else {
-                    val errorMessage = resource.error ?: "Ocorreu uma falha no cadastro"
+                    val errorMessage = resource.error?.let { error ->
+                        getString(error)
+                    } ?: getString(R.string.register_failed)
                     view?.snackBar(errorMessage)
 
                 }
@@ -78,21 +80,21 @@ class CreateAccountFragment : Fragment() {
     ): Boolean {
         var userRegisterValid = true
         if (email.isBlank()) {
-            binding.userEmail.error = "E-mail é necessário"
+            binding.userEmail.error = getString(R.string.email_required )
             userRegisterValid = false
         }
         if (password.isBlank()) {
-            binding.userPassword.error = "Senha é necessaria"
+            binding.userPassword.error = getString(R.string.password_required)
             userRegisterValid = false
         }
         if (confirmPassword.isBlank()) {
             binding.confirmUserPassword.error =
-                "Confirmação da senha é necessaria"
+                getString(R.string.password_confirmation_is_required)
             userRegisterValid = false
         }
         if (password != confirmPassword) {
             binding.confirmUserPassword.error =
-                "Senhas diferentes"
+                getString(R.string.different_passwords)
             userRegisterValid = false
         }
         return userRegisterValid
