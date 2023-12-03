@@ -21,4 +21,8 @@
     <string name="register_failed">Ocorreu uma falha no cadastro</string>
     <string name="different_passwords">Senhas diferentes</string>
     <string name="password_confirmation_is_required">Confirmação da senha é necessaria</string>
+    <string name="treino_desc">Descrição</string>
+    <string name="save_btn">Salvar</string>
+    <string name="register_btn">Cadastrar</string>
+    <string name="date">Data</string>
 </resources>

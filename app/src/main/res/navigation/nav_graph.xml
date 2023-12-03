@@ -9,7 +9,11 @@
         android:id="@+id/home_fragment"
         android:name="com.chscorp.apptreino.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_fragment_to_createNewTreinoFragment"
+            app:destination="@id/createNewTreinoFragment" />
+    </fragment>
     <action
     android:id="@+id/global_action_login"
     app:destination="@id/login_graph"
@@ -46,4 +50,9 @@
                 app:popUpToInclusive="true" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/createNewTreinoFragment"
+        android:name="com.chscorp.apptreino.ui.CreateNewTreinoFragment"
+        android:label="fragment_create_new_treino"
+        tools:layout="@layout/fragment_create_new_treino" />
 </navigation>
