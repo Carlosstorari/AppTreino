@@ -3,28 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.chscorp.apptreino.ui.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_accountFragment"
-            app:destination="@id/createAccountFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createAccountFragment"
-        android:name="com.chscorp.apptreino.ui.CreateAccountFragment"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_create_account" />
-    <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_fragment"
         android:name="com.chscorp.apptreino.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <action
+    android:id="@+id/global_action_login"
+    app:destination="@id/login_graph"
+    app:enterAnim="@anim/nav_default_enter_anim"
+    app:exitAnim="@anim/nav_default_exit_anim"
+    app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+    app:popExitAnim="@anim/nav_default_pop_exit_anim"
+    app:popUpTo="@+id/home_fragment"
+    app:popUpToInclusive="true" />
+    <navigation android:id="@+id/login_graph"
+        android:label="Fluxo Login"
+        app:startDestination="@id/login_fragment">
+        <fragment
+            android:id="@+id/create_account_fragment"
+            android:name="com.chscorp.apptreino.ui.CreateAccountFragment"
+            android:label="fragment_account"
+            tools:layout="@layout/fragment_create_account" />
+        <fragment
+            android:id="@+id/login_fragment"
+            android:name="com.chscorp.apptreino.ui.LoginFragment"
+            android:label="LoginFragment"
+            tools:layout="@layout/fragment_login">
+            <action
+                android:id="@+id/action_loginFragment_to_accountFragment"
+                app:destination="@id/create_account_fragment" />
+            <action
+                android:id="@+id/acao_login_para_listaProdutos"
+                app:destination="@id/home_fragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popUpTo="@+id/login_fragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+    </navigation>
 </navigation>

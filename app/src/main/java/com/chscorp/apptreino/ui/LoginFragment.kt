@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginBtn.setOnClickListener {
-            val direction = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+            val direction = LoginFragmentDirections.acaoLoginParaListaProdutos()
             controller.navigate(direction)
         }
 

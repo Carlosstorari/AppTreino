@@ -14,27 +14,8 @@ import java.lang.IllegalArgumentException
 private const val TAG = "firebaseAuthRepository"
 
 class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
-    private fun desloga(firebaseAuth: FirebaseAuth) {
+    fun desloga() {
         firebaseAuth.signOut()
-    }
-
-    private fun verificaSeUsuarioEstaLogado(firebaseAuth: FirebaseAuth) {
-        val usuarioFirebase: FirebaseUser? = firebaseAuth.currentUser
-        if (usuarioFirebase != null) {
-
-        } else {
-
-        }
-    }
-
-    private fun autenticaUsuario(firebaseAuth: FirebaseAuth) {
-        firebaseAuth.signInWithEmailAndPassword("carlos.storari95@gmail.com", "teste1234")
-            .addOnSuccessListener {
-
-            }.addOnFailureListener {
-                Log.e("Errorrr", "onCreate", it)
-
-            }
     }
 
     fun createNewUser(email: String, password: String): LiveData<Resource<Boolean>> {
@@ -68,5 +49,13 @@ class FirebaseAuthRepository(private val firebaseAuth: FirebaseAuth) {
             else -> "Erro desconhecido"
         }
         return errorMessage
+    }
+
+    fun estaLogado(): Boolean {
+        val usuarioFirebase: FirebaseUser? = firebaseAuth.currentUser
+        if (usuarioFirebase != null) {
+            return true
+        }
+        return false
     }
 }
