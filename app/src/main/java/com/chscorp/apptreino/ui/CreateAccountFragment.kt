@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateAccountBinding
+import com.chscorp.apptreino.extensions.snackBar
+import com.chscorp.apptreino.model.User
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,29 +32,76 @@ class CreateAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.confirmRegisterUserBtn.setOnClickListener {
-            val email = binding.userEmail.editText?.text.toString()
-            val senha = binding.userPassword.editText?.text.toString()
-            viewModel.registerNewUser(email, senha).observe(viewLifecycleOwner, Observer {
-                it?.let { registerWithSuccess ->
-                    if (registerWithSuccess) {
-                        Snackbar.make(
-                            view,
-                            "Cadastro realizado com sucesso",
-                            Snackbar.LENGTH_SHORT)
-                            .show()
-                        controller.popBackStack()
-                    } else {
-                        Snackbar.make(
-                            view,
-                            "Ocorreu uma falha no cadastro",
-                            Snackbar.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            })
+        setupBtnRegister()
+    }
 
+    private fun setupBtnRegister() {
+        binding.apply {
+            confirmRegisterUserBtn.setOnClickListener {
+
+                cleanFields()
+
+                val email = userEmail.editText?.text.toString()
+                val password = userPassword.editText?.text.toString()
+                val confirmPassword = confirmUserPassword.editText?.text.toString()
+
+                val userRegisterValid = validateFields(email, password, confirmPassword)
+
+                if (userRegisterValid) {
+                    register(User(email, password))
+                }
+
+
+            }
         }
+    }
+
+    private fun register(user: User) {
+        viewModel.registerNewUser(user.email, user.password).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                if (resource.content) {
+                    view?.snackBar("Cadastro realizado com sucesso")
+                    controller.popBackStack()
+                } else {
+                    val errorMessage = resource.error ?: "Ocorreu uma falha no cadastro"
+                    view?.snackBar(errorMessage)
+
+                }
+            }
+        })
+    }
+
+    private fun validateFields(
+        email: String,
+        password: String,
+        confirmPassword: String
+    ): Boolean {
+        var userRegisterValid = true
+        if (email.isBlank()) {
+            binding.userEmail.error = "E-mail é necessário"
+            userRegisterValid = false
+        }
+        if (password.isBlank()) {
+            binding.userPassword.error = "Senha é necessaria"
+            userRegisterValid = false
+        }
+        if (confirmPassword.isBlank()) {
+            binding.confirmUserPassword.error =
+                "Confirmação da senha é necessaria"
+            userRegisterValid = false
+        }
+        if (password != confirmPassword) {
+            binding.confirmUserPassword.error =
+                "Senhas diferentes"
+            userRegisterValid = false
+        }
+        return userRegisterValid
+    }
+
+    private fun cleanFields() {
+        binding.userEmail.error = null
+        binding.userPassword.error = null
+        binding.confirmUserPassword.error = null
     }
 
 }
