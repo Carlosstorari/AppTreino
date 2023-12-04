@@ -11,8 +11,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 
 private const val TAG = "firebaseAuthRepository"
 

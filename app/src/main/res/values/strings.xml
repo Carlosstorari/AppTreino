@@ -25,4 +25,6 @@
     <string name="save_btn">Salvar</string>
     <string name="register_btn">Cadastrar</string>
     <string name="date">Data</string>
+    <string name="fail_save_treino">falha ao salvar o treino</string>
+    <string name="empty_fields">Preecha todos os campos antes de salvar</string>
 </resources>
