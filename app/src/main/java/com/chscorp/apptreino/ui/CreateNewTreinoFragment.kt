@@ -47,7 +47,15 @@ class CreateNewTreinoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         var datepickerValue: Timestamp? = null
         binding.treinoDateEditText.setOnClickListener {
-            setupDatePicker(datepickerValue)
+            val dateSelected = openMaterialDatePicker()
+            dateSelected
+                .addOnPositiveButtonClickListener { dataEmMilisegundos ->
+                    val date = getDate(dataEmMilisegundos)
+                    datepickerValue = Timestamp(Date(dataEmMilisegundos))
+                    val formatter = dateTimeFormatter()
+                    val dateFormatted = formatter?.format(date)
+                    binding.treinoDateEditText.setText(dateFormatted)
+                }
         }
         binding.confirmRegisterUserBtn.setOnClickListener {
             setupRegisterTreinoBtn(datepickerValue)
@@ -69,19 +77,19 @@ class CreateNewTreinoFragment : BaseFragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun setupDatePicker(datepickerValue: Timestamp?) {
-        var datepickerValue1 = datepickerValue
-        val dateSelected = openMaterialDatePicker()
-        dateSelected
-            .addOnPositiveButtonClickListener { dataEmMilisegundos ->
-                val date = getDate(dataEmMilisegundos)
-                datepickerValue1 = Timestamp(Date(dataEmMilisegundos))
-                val formatter = dateTimeFormatter()
-                val dateFormatted = formatter?.format(date)
-                binding.treinoDateEditText.setText(dateFormatted)
-            }
-    }
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun setupDatePicker(datepickerValue: Timestamp?) {
+//        var datepickerValue1 = datepickerValue
+//        val dateSelected = openMaterialDatePicker()
+//        dateSelected
+//            .addOnPositiveButtonClickListener { dataEmMilisegundos ->
+//                val date = getDate(dataEmMilisegundos)
+//                datepickerValue1 = Timestamp(Date(dataEmMilisegundos))
+//                val formatter = dateTimeFormatter()
+//                val dateFormatted = formatter?.format(date)
+//                binding.treinoDateEditText.setText(dateFormatted)
+//            }
+//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun dateTimeFormatter(): DateTimeFormatter? {

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.chscorp.apptreino.SampleListTreino
 import com.chscorp.apptreino.databinding.FragmentHomeBinding
 import com.chscorp.apptreino.ui.adapter.ListTreinoAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
