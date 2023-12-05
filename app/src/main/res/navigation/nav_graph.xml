@@ -7,12 +7,15 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.chscorp.apptreino.ui.HomeFragment"
+        android:name="com.chscorp.apptreino.ui.fragments.ListTreinosFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_list_treinos" >
         <action
             android:id="@+id/action_home_fragment_to_createNewTreinoFragment"
             app:destination="@id/createNewTreinoFragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_treinoFragment"
+            app:destination="@id/treinoFragment" />
     </fragment>
     <action
     android:id="@+id/global_action_login"
@@ -28,12 +31,12 @@
         app:startDestination="@id/login_fragment">
         <fragment
             android:id="@+id/create_account_fragment"
-            android:name="com.chscorp.apptreino.ui.CreateAccountFragment"
+            android:name="com.chscorp.apptreino.ui.fragments.CreateAccountFragment"
             android:label="fragment_account"
             tools:layout="@layout/fragment_create_account" />
         <fragment
             android:id="@+id/login_fragment"
-            android:name="com.chscorp.apptreino.ui.LoginFragment"
+            android:name="com.chscorp.apptreino.ui.fragments.LoginFragment"
             android:label="LoginFragment"
             tools:layout="@layout/fragment_login">
             <action
@@ -52,7 +55,16 @@
     </navigation>
     <fragment
         android:id="@+id/createNewTreinoFragment"
-        android:name="com.chscorp.apptreino.ui.CreateNewTreinoFragment"
+        android:name="com.chscorp.apptreino.ui.fragments.CreateNewTreinoFragment"
         android:label="fragment_create_new_treino"
         tools:layout="@layout/fragment_create_new_treino" />
+    <fragment
+        android:id="@+id/treinoFragment"
+        android:name="com.chscorp.apptreino.ui.fragments.PageTreinoFragment"
+        android:label="fragment_treino"
+        tools:layout="@layout/fragment_page_treino" >
+        <argument
+            android:name="treinoId"
+            app:argType="string" />
+    </fragment>
 </navigation>

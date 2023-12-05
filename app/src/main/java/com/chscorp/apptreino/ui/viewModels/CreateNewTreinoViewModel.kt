@@ -1,4 +1,4 @@
-package com.chscorp.apptreino.ui
+package com.chscorp.apptreino.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.chscorp.apptreino.model.Treino

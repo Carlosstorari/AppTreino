@@ -1,4 +1,4 @@
-package com.chscorp.apptreino.ui
+package com.chscorp.apptreino.ui.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateNewTreinoBinding
 import com.chscorp.apptreino.extensions.snackBar
 import com.chscorp.apptreino.model.Treino
+import com.chscorp.apptreino.ui.viewModels.CreateNewTreinoViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
 import java.time.Instant
@@ -22,7 +22,6 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.IllegalArgumentException
 
 
 class CreateNewTreinoFragment : BaseFragment() {
@@ -65,7 +64,7 @@ class CreateNewTreinoFragment : BaseFragment() {
     private fun setupRegisterTreinoBtn(datepickerValue: Timestamp?) {
         val name = binding.treinoName.editText?.text.toString()
         val description = binding.treinoDesc.editText?.text.toString()
-        val treino = Treino(name.toLong(), description, datepickerValue)
+        val treino = Treino(null, name.toLong(), description, datepickerValue)
         viewModel.save(treino).observe(viewLifecycleOwner) {
             it?.let { saved ->
                 if (saved) {
@@ -77,19 +76,6 @@ class CreateNewTreinoFragment : BaseFragment() {
         }
     }
 
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun setupDatePicker(datepickerValue: Timestamp?) {
-//        var datepickerValue1 = datepickerValue
-//        val dateSelected = openMaterialDatePicker()
-//        dateSelected
-//            .addOnPositiveButtonClickListener { dataEmMilisegundos ->
-//                val date = getDate(dataEmMilisegundos)
-//                datepickerValue1 = Timestamp(Date(dataEmMilisegundos))
-//                val formatter = dateTimeFormatter()
-//                val dateFormatted = formatter?.format(date)
-//                binding.treinoDateEditText.setText(dateFormatted)
-//            }
-//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun dateTimeFormatter(): DateTimeFormatter? {

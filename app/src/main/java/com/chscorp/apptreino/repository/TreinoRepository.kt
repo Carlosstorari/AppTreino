@@ -5,17 +5,31 @@ import androidx.lifecycle.MutableLiveData
 import com.chscorp.apptreino.model.Treino
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
+import java.util.Calendar
 
 class TreinoRepository(private val firestore: FirebaseFirestore) {
+
+    fun searchForId(id: String): LiveData<Treino> = MutableLiveData<Treino>().apply {
+        firestore.collection(COLLECTION_FIRESTORE_TREINO)
+            .document(id)
+            .addSnapshotListener { s, _ ->
+            s?.let { snapshot ->
+                snapshot.toObject<TreinoDocument>()?.toTreino(snapshot.id)
+                    ?.let { treino ->
+                        value = treino
+                    }
+            }
+        }
+    }
+
     fun saveTreino(treino: Treino): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
-        val treinoMapeado = mapOf<String, Any?>(
-            FIELD_NOME to treino.name,
-            FIELD_DESCRICAO to treino.description,
-            FIELD_DATE to treino.date
+        val treinoDocument = TreinoDocument(
+            nome = treino.name, descricao = treino.description, date = treino.date
         )
         firestore.collection(COLLECTION_FIRESTORE_TREINO)
-            .add(treinoMapeado)
+            .add(treinoDocument)
             .addOnSuccessListener {
                 liveData.value = true
             }
@@ -25,32 +39,39 @@ class TreinoRepository(private val firestore: FirebaseFirestore) {
         return liveData
     }
 
-    fun searchTreino(): LiveData<List<Treino>> {
-        val liveData: MutableLiveData<List<Treino>> = MutableLiveData<List<Treino>>()
+    fun searchTreino(): LiveData<List<Treino>> = MutableLiveData<List<Treino>>().apply {
         firestore.collection(COLLECTION_FIRESTORE_TREINO)
-            .get()
-            .addOnSuccessListener {
-                it?.let { snapshot ->
-                    val treinos = mutableListOf<Treino>()
-                    for (treino in snapshot.documents) {
-                        treino.data?.let { content ->
-                            val nome = content[FIELD_NOME] as Long
-                            val desc = content[FIELD_DESCRICAO] as String
-                            val date = content[FIELD_DATE] as Timestamp?
-                            treinos.add(Treino(nome, desc, date))
-                        }
+            .addSnapshotListener { s, _ ->
+                s?.let { snapshot ->
+                    val treinos: List<Treino> = snapshot.documents.mapNotNull { doc ->
+                        doc.toObject<TreinoDocument>()?.toTreino(doc.id)
                     }
-                    liveData.value = treinos
+                    value = treinos
                 }
             }
-        return liveData
+    }
+
+
+    private class TreinoDocument(
+        val nome: Long = 0,
+        val descricao: String = "",
+        val date: Timestamp? = Timestamp(
+            Calendar.getInstance().time
+        )
+    ) {
+        fun toTreino(id: String): Treino {
+            return Treino(
+                id = id,
+                name = nome,
+                description = descricao,
+                date = date
+            )
+        }
+
     }
 
     companion object {
         private const val COLLECTION_FIRESTORE_TREINO = "Treino"
-        private const val FIELD_NOME = "nome"
-        private const val FIELD_DESCRICAO = "descricao"
-        private const val FIELD_DATE = "date"
     }
 
 }

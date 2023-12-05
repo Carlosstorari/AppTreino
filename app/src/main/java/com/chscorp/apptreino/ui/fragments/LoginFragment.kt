@@ -1,4 +1,4 @@
-package com.chscorp.apptreino.ui
+package com.chscorp.apptreino.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentLoginBinding
 import com.chscorp.apptreino.extensions.snackBar
 import com.chscorp.apptreino.model.User
+import com.chscorp.apptreino.ui.viewModels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -38,7 +39,8 @@ class LoginFragment : Fragment() {
 
     private fun setupCreateAccountBtn() {
         binding.createAccountBtn.setOnClickListener {
-            val direction = LoginFragmentDirections.actionLoginFragmentToAccountFragment()
+            val direction =
+                LoginFragmentDirections.actionLoginFragmentToAccountFragment()
             controller.navigate(direction)
         }
     }

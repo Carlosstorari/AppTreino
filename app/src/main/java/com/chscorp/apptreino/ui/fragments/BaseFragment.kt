@@ -1,4 +1,4 @@
-package com.chscorp.apptreino.ui
+package com.chscorp.apptreino.ui.fragments
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.chscorp.apptreino.NavGraphDirections
 import com.chscorp.apptreino.R
+import com.chscorp.apptreino.ui.viewModels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class BaseFragment : Fragment() {

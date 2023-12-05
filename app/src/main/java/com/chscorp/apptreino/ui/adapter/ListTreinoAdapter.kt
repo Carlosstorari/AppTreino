@@ -11,14 +11,21 @@ import java.util.Date
 
 class ListTreinoAdapter(
     private val context: Context,
-    treinos: List<Treino> = emptyList()
+    treinos: List<Treino> = emptyList(),
+    var onItemClickListener: (treino: Treino) -> Unit = {}
 ) : RecyclerView.Adapter<ListTreinoAdapter.ViewHolder>() {
     private val treinos = treinos.toMutableList()
 
     inner class ViewHolder(private val binding: TreinoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var treino: Treino
-
+        init {
+            itemView.setOnClickListener {
+                if (::treino.isInitialized) {
+                    onItemClickListener(treino)
+                }
+            }
+        }
         fun bind(treino: Treino) {
             this.treino = treino
             val name = binding.treinoName

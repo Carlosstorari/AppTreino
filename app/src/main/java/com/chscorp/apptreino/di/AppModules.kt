@@ -2,13 +2,16 @@ package com.chscorp.apptreino.di
 
 import com.chscorp.apptreino.repository.FirebaseAuthRepository
 import com.chscorp.apptreino.repository.TreinoRepository
-import com.chscorp.apptreino.ui.CreateAccountFragment
-import com.chscorp.apptreino.ui.CreateAccountViewModel
-import com.chscorp.apptreino.ui.CreateNewTreinoViewModel
-import com.chscorp.apptreino.ui.HomeFragment
-import com.chscorp.apptreino.ui.ListTreinosViewModel
-import com.chscorp.apptreino.ui.LoginFragment
-import com.chscorp.apptreino.ui.LoginViewModel
+import com.chscorp.apptreino.ui.fragments.CreateAccountFragment
+import com.chscorp.apptreino.ui.viewModels.CreateAccountViewModel
+import com.chscorp.apptreino.ui.viewModels.CreateNewTreinoViewModel
+import com.chscorp.apptreino.ui.fragments.ListTreinosFragment
+import com.chscorp.apptreino.ui.viewModels.ListTreinosViewModel
+import com.chscorp.apptreino.ui.fragments.LoginFragment
+import com.chscorp.apptreino.ui.viewModels.LoginViewModel
+import com.chscorp.apptreino.ui.adapter.ListTreinoAdapter
+import com.chscorp.apptreino.ui.fragments.PageTreinoFragment
+import com.chscorp.apptreino.ui.viewModels.PageTreinoViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,12 +25,15 @@ val viewModels = module {
     viewModel { LoginViewModel(get()) }
     viewModel { ListTreinosViewModel(get()) }
     viewModel { CreateNewTreinoViewModel(get()) }
+    viewModel { (id: String) -> PageTreinoViewModel(id, get()) }
 }
 
 val uiModules = module {
     factory { LoginFragment() }
-    factory { HomeFragment() }
+    factory { ListTreinosFragment() }
     factory { CreateAccountFragment() }
+    factory { PageTreinoFragment() }
+    factory { ListTreinoAdapter(get()) }
 }
 
 val repositoryModule = module {

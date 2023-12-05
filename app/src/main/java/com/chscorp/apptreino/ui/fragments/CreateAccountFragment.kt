@@ -1,4 +1,4 @@
-package com.chscorp.apptreino.ui
+package com.chscorp.apptreino.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.chscorp.apptreino.R
 import com.chscorp.apptreino.databinding.FragmentCreateAccountBinding
 import com.chscorp.apptreino.extensions.snackBar
 import com.chscorp.apptreino.model.User
+import com.chscorp.apptreino.ui.viewModels.CreateAccountViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
