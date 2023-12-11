@@ -57,7 +57,13 @@
         android:id="@+id/createNewTreinoFragment"
         android:name="com.chscorp.apptreino.ui.fragments.CreateNewTreinoFragment"
         android:label="fragment_create_new_treino"
-        tools:layout="@layout/fragment_create_new_treino" />
+        tools:layout="@layout/fragment_create_new_treino" >
+        <argument
+            android:name="treinoId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/treinoFragment"
         android:name="com.chscorp.apptreino.ui.fragments.PageTreinoFragment"
@@ -66,5 +72,12 @@
         <argument
             android:name="treinoId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_treinoFragment_to_createNewTreinoFragment"
+            app:destination="@id/createNewTreinoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

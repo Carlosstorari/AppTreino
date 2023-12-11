@@ -23,20 +23,19 @@ class TreinoRepository(private val firestore: FirebaseFirestore) {
         }
     }
 
-    fun saveTreino(treino: Treino): LiveData<Boolean> {
-        val liveData = MutableLiveData<Boolean>()
+    fun saveTreino(treino: Treino) =  MutableLiveData<Boolean>().apply {
         val treinoDocument = TreinoDocument(
             nome = treino.name, descricao = treino.description, date = treino.date
         )
-        firestore.collection(COLLECTION_FIRESTORE_TREINO)
-            .add(treinoDocument)
-            .addOnSuccessListener {
-                liveData.value = true
-            }
-            .addOnFailureListener {
-                liveData.value = false
-            }
-        return liveData
+
+        val collection = firestore.collection(COLLECTION_FIRESTORE_TREINO)
+        val document = treino.id?.let { id ->
+            collection.document(id)
+        } ?: collection.document()
+
+        document.set(treinoDocument)
+
+        value = true
     }
 
     fun searchTreino(): LiveData<List<Treino>> = MutableLiveData<List<Treino>>().apply {
