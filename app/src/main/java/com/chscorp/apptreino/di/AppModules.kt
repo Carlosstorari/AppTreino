@@ -25,7 +25,7 @@ val viewModels = module {
     viewModel { LoginViewModel(get()) }
     viewModel { ListTreinosViewModel(get()) }
     viewModel { CreateNewTreinoViewModel(get()) }
-    viewModel { (id: String) -> PageTreinoViewModel(id, get()) }
+    viewModel <PageTreinoViewModel>{ (id: String) -> PageTreinoViewModel(id, get()) }
 }
 
 val uiModules = module {

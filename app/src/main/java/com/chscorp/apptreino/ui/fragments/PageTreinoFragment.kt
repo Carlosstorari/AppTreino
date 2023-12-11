@@ -1,7 +1,6 @@
 package com.chscorp.apptreino.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,21 +13,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chscorp.apptreino.R
+import com.chscorp.apptreino.ui.viewModels.PageTreinoViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class PageTreinoFragment : BaseFragment() {
     private val navController by lazy {
         findNavController()
     }
-
     private val args by navArgs<PageTreinoFragmentArgs>()
     private val treinoId by lazy {
         args.treinoId
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val viewModel: PageTreinoViewModel by viewModel { parametersOf(treinoId) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +46,9 @@ class PageTreinoFragment : BaseFragment() {
                         true
                     }
                     R.id.delete -> {
+                        viewModel.delete().observe(viewLifecycleOwner) {
+                            navController.popBackStack()
+                        }
                         true
                     }
                     else -> false

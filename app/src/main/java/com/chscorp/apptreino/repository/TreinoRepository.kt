@@ -50,6 +50,14 @@ class TreinoRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
+    fun delete(treinoId: String): LiveData<Boolean> = MutableLiveData<Boolean>().apply {
+        firestore.collection(COLLECTION_FIRESTORE_TREINO)
+            .document(treinoId)
+            .delete()
+
+        value = true
+    }
+
 
     private class TreinoDocument(
         val nome: Long = 0,
