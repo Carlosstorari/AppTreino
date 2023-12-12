@@ -58,9 +58,9 @@ class ListTreinoAdapter(
         holder.bind(treinos)
     }
 
-    fun refresh(produtos: List<Treino>) {
+    fun refresh(treino: List<Treino>) {
         this.treinos.clear()
-        this.treinos.addAll(produtos)
+        this.treinos.addAll(treino)
         notifyDataSetChanged()
     }
 }

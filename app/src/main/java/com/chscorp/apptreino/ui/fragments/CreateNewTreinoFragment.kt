@@ -52,15 +52,7 @@ class CreateNewTreinoFragment : BaseFragment() {
         treinoId?.let { id ->
             viewModel.searchForId(id).observe(viewLifecycleOwner) {
                 it?.let {treino ->
-                    val name = treino.name
-                    val description = treino.description
-                    val date = treino.date
-                    binding.apply {
-                        treinoName.editText?.setText(name.toString())
-                        treinoDesc.editText?.setText(description.toString())
-                        treinoDate.editText?.setText(timestampToDateTimeFormater(timestampToMilli(date?.seconds)))
-                        requireActivity().title = "Alterar dados do treino"
-                    }
+                    getTreino(treino)
 
                 }
             }
@@ -81,6 +73,24 @@ class CreateNewTreinoFragment : BaseFragment() {
             setupRegisterTreinoBtn(datepickerValue)
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTreino(treino: Treino) {
+        val name = treino.name
+        val description = treino.description
+        val date = treino.date
+        binding.apply {
+            treinoName.editText?.setText(name.toString())
+            treinoDesc.editText?.setText(description.toString())
+            treinoDate.editText?.setText(timestampToDateTimeFormater(timestampToMilli(date?.seconds)))
+            setTitle()
+        }
+    }
+
+    private fun setTitle() {
+        requireActivity().title = "Alterar dados do treino"
+    }
+
     fun timestampToMilli(time: Long?): Long {
         if (time != null) {
             return if (time < 1000000000000L) {

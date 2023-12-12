@@ -43,6 +43,10 @@ class ListTreinosFragment : BaseFragment() {
                 rv.adapter = adapter
             }
         })
+        setupFab()
+    }
+
+    private fun setupFab() {
         binding.fab.setOnClickListener {
             val direction =
                 ListTreinosFragmentDirections.actionHomeFragmentToCreateNewTreinoFragment()

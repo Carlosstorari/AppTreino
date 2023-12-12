@@ -1,7 +1,9 @@
 package com.chscorp.apptreino.di
 
+import com.chscorp.apptreino.repository.ExercicioRepository
 import com.chscorp.apptreino.repository.FirebaseAuthRepository
 import com.chscorp.apptreino.repository.TreinoRepository
+import com.chscorp.apptreino.ui.adapter.ListExercicioAdapter
 import com.chscorp.apptreino.ui.fragments.CreateAccountFragment
 import com.chscorp.apptreino.ui.viewModels.CreateAccountViewModel
 import com.chscorp.apptreino.ui.viewModels.CreateNewTreinoViewModel
@@ -25,7 +27,7 @@ val viewModels = module {
     viewModel { LoginViewModel(get()) }
     viewModel { ListTreinosViewModel(get()) }
     viewModel { CreateNewTreinoViewModel(get()) }
-    viewModel <PageTreinoViewModel>{ (id: String) -> PageTreinoViewModel(id, get()) }
+    viewModel<PageTreinoViewModel> { (id: String) -> PageTreinoViewModel(id, get(), get()) }
 }
 
 val uiModules = module {
@@ -34,14 +36,16 @@ val uiModules = module {
     factory { CreateAccountFragment() }
     factory { PageTreinoFragment() }
     factory { ListTreinoAdapter(get()) }
+    factory { ListExercicioAdapter(get()) }
 }
 
 val repositoryModule = module {
     single { FirebaseAuthRepository(get()) }
     single { TreinoRepository(get()) }
+    single { ExercicioRepository(get()) }
 }
 
 val firebaseModule = module {
-    single <FirebaseAuth>{ Firebase.auth }
-    single <FirebaseFirestore>{ Firebase.firestore }
+    single<FirebaseAuth> { Firebase.auth }
+    single<FirebaseFirestore> { Firebase.firestore }
 }
