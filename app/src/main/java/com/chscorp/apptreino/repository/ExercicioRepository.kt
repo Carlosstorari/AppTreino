@@ -21,15 +21,30 @@ class ExercicioRepository(private val firestore: FirebaseFirestore) {
             }
     }
 
+    fun saveExercicio(exercicio: Exercicio) =  MutableLiveData<Boolean>().apply {
+        val exercicioDocument = ExercicioDocument(
+            nome = exercicio.nome, observacoes = exercicio.observacoes, treinoId = exercicio.treinoId
+        )
+
+        val collection = firestore.collection(COLLECTION_FIRESTORE_EXERCICIO)
+        val document = exercicio.exercicioId?.let { id ->
+            collection.document(id)
+        } ?: collection.document()
+
+        document.set(exercicioDocument)
+
+        value = true
+    }
+
     private class ExercicioDocument(
         val nome: Long = 0,
-        val obcervacoes: String = "",
-        val treinoId: String = ""
+        val observacoes: String = "",
+        val treinoId: String? = ""
     ){
         fun toExercicio(id: String) = Exercicio(
             exercicioId = id,
             nome = nome,
-            observacoes = obcervacoes,
+            observacoes = observacoes,
             treinoId = treinoId,
             imagem = ""
         )

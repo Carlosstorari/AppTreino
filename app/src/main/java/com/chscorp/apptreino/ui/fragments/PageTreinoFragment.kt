@@ -40,6 +40,7 @@ class PageTreinoFragment() : BaseFragment() {
     ): View? {
         binding = FragmentPageTreinoBinding.inflate(inflater, container, false)
         val menuHost: MenuHost = requireActivity()
+        requireActivity().title = "Treino"
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_page_treino, menu)
@@ -49,6 +50,7 @@ class PageTreinoFragment() : BaseFragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setupListExercicios()
+        setupFabAddExercicio()
 
         return binding.root
     }
@@ -86,5 +88,13 @@ class PageTreinoFragment() : BaseFragment() {
         PageTreinoFragmentDirections
             .actionTreinoFragmentToCreateNewTreinoFragment(treinoId)
             .let(navController::navigate)
+    }
+
+    private fun setupFabAddExercicio(){
+        binding.fabAddExercicios.setOnClickListener {
+            PageTreinoFragmentDirections
+                .actionTreinoFragmentToCreateNewExercicioFragment(treinoId)
+                .let(navController::navigate)
+        }
     }
 }

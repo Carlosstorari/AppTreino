@@ -37,7 +37,6 @@ class TreinoRepository(private val firestore: FirebaseFirestore) {
 
         value = true
     }
-
     fun searchTreino(): LiveData<List<Treino>> = MutableLiveData<List<Treino>>().apply {
         firestore.collection(COLLECTION_FIRESTORE_TREINO)
             .addSnapshotListener { s, _ ->

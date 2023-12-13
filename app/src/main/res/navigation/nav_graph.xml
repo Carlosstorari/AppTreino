@@ -79,5 +79,19 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_treinoFragment_to_createNewExercicioFragment"
+            app:destination="@id/createNewExercicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewExercicioFragment"
+        android:name="com.chscorp.apptreino.ui.fragments.CreateNewExercicioFragment"
+        android:label="fragment_create_new_exercicio"
+        tools:layout="@layout/fragment_create_new_exercicio" >
+        <argument
+            android:name="treinoId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

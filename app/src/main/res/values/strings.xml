@@ -26,7 +26,8 @@
     <string name="register_btn">Cadastrar</string>
     <string name="date">Data</string>
     <string name="fail_save_treino">falha ao salvar o treino</string>
+    <string name="fail_save_exercicio">falha ao salvar o exercicio</string>
     <string name="empty_fields">Preecha todos os campos antes de salvar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exercise_observation_hint">observação</string>
+    <string name="create_new_exercise_btn">adicionar novo exercicio</string>
 </resources>

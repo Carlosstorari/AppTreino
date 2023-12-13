@@ -12,7 +12,9 @@ import com.chscorp.apptreino.ui.viewModels.ListTreinosViewModel
 import com.chscorp.apptreino.ui.fragments.LoginFragment
 import com.chscorp.apptreino.ui.viewModels.LoginViewModel
 import com.chscorp.apptreino.ui.adapter.ListTreinoAdapter
+import com.chscorp.apptreino.ui.fragments.CreateNewExercicioFragment
 import com.chscorp.apptreino.ui.fragments.PageTreinoFragment
+import com.chscorp.apptreino.ui.viewModels.CreateNewExercicioViewModel
 import com.chscorp.apptreino.ui.viewModels.PageTreinoViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,6 +30,7 @@ val viewModels = module {
     viewModel { ListTreinosViewModel(get()) }
     viewModel { CreateNewTreinoViewModel(get()) }
     viewModel<PageTreinoViewModel> { (id: String) -> PageTreinoViewModel(id, get(), get()) }
+    viewModel { CreateNewExercicioViewModel(get()) }
 }
 
 val uiModules = module {
@@ -37,6 +40,7 @@ val uiModules = module {
     factory { PageTreinoFragment() }
     factory { ListTreinoAdapter(get()) }
     factory { ListExercicioAdapter(get()) }
+    factory { CreateNewExercicioFragment() }
 }
 
 val repositoryModule = module {

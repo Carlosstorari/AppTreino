@@ -17,4 +17,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/exercicio_item"/>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_add_exercicios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:text="@string/create_new_exercise_btn"
+        android:contentDescription="@string/create_new_exercise_btn"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
